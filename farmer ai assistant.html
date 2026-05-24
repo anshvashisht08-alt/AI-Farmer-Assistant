@@ -1,0 +1,534 @@
+
+
+Skip to content
+Using Gmail with screen readers
+Conversations
+0% of 5,120 GB used
+Terms · Privacy · Programme Policies
+Last account activity: 0 minutes ago
+Open in 1 other location · Details
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmers AI Master - National Science Day 2026</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+
+        :root { --primary: #1b5e20; --secondary: #2e7d32; --accent: #4ae339; --danger: #d32f2f; --info: #0288d1; }
+
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: #f0f2f0; overflow-x: hidden; }
+
+
+
+        /* 1. SPLASH SCREEN */
+
+        #splash-screen {
+
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+
+                        url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200');
+
+            background-size: cover; background-position: center;
+
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+
+            z-index: 10000; color: white; transition: 1s ease-in-out;
+
+        }
+
+        .get-started-btn { background: var(--accent); border:none; padding:18px 50px; border-radius:50px; font-weight:bold; cursor:pointer; font-size:1.2rem; color:#000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: 0.3s; }
+
+        .get-started-btn:hover { transform: scale(1.05); }
+
+
+
+        #main-app { display: none; opacity: 0; transition: 1s ease; }
+
+
+
+        /* 2. SLIDER */
+
+        .slider-section { width: 100%; height: 40vh; position: relative; overflow: hidden; }
+
+        .slide { width: 100%; height: 100%; position: absolute; opacity: 0; transition: 1.5s ease; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
+
+        .slide.active { opacity: 1; }
+
+        .slide-overlay { background: linear-gradient(transparent, rgba(0,0,0,0.8)); width: 100%; padding: 40px; color: white; }
+
+
+
+        /* 3. KCC BANNER */
+
+        .kcc-banner { background: linear-gradient(135deg, #d32f2f, #b71c1c); color: white; padding: 15px 25px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; max-width: 900px; margin: 20px auto; box-shadow: 0 10px 25px rgba(211,47,47,0.3); flex-wrap: wrap; gap: 10px; }
+
+        .ring-icon { background: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; animation: ring 1.2s infinite; }
+
+        @keyframes ring { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(15deg); } 75% { transform: rotate(-15deg); } }
+
+
+
+        /* 4. DASHBOARD GRID */
+
+        .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; padding: 20px; max-width: 1200px; margin: auto; }
+
+        .dash-card { background: white; padding: 15px; border-radius: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-bottom: 4px solid transparent; }
+
+        .dash-card i { font-size: 1.5rem; margin-bottom: 8px; }
+
+
+
+        /* 5. MAIN AI TOOL */
+
+        .tool-bg { background: linear-gradient(rgba(27,94,32,0.9), rgba(27,94,32,0.9)), url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?w=1200'); padding: 50px 20px; }
+
+        .main-container { max-width: 750px; width: 100%; background: white; padding: 30px; border-radius: 35px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); margin: auto; }
+
+        .input-group { display: flex; background: #f1f5f1; padding: 8px; border-radius: 50px; border: 2px solid #eee; align-items: center; gap: 8px; }
+
+        .input-group input { flex: 1; border: none; outline: none; background: transparent; font-size: 16px; padding-left: 12px; }
+
+        .click-btn { width: 45px; height: 45px; border-radius: 50%; cursor: pointer; color: white; display: flex; justify-content: center; align-items: center; transition: 0.3s; border: none; }
+
+        
+
+        #preview-img { width: 100%; max-height: 250px; object-fit: cover; border-radius: 20px; display: none; margin-bottom: 20px; border: 4px solid var(--accent); }
+
+        #response-box { margin-top: 25px; padding: 25px; border-radius: 25px; background: #fafafa; border-left: 10px solid var(--primary); display: none; }
+
+        
+
+        footer { background: #111; color: white; text-align: center; padding: 30px 20px; }
+
+        select { padding: 8px; border-radius: 10px; border: 2px solid var(--primary); outline: none; }
+
+
+
+        @media (max-width: 600px) {
+
+            h1 { font-size: 2rem !important; }
+
+            .kcc-banner { text-align: center; justify-content: center; }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div id="splash-screen">
+
+        <i class="fas fa-robot" style="font-size: 70px; color: var(--accent); margin-bottom: 20px;"></i>
+
+        <h1 style="font-size: 3rem; text-align: center; margin: 10px;">FARMERS AI MASTER</h1>
+
+        <p style="font-size: 1.1rem; margin-bottom: 40px; letter-spacing: 1px;">Smart Farming for 2026</p>
+
+        <button class="get-started-btn" onclick="startApp()">START DASHBOARD <i class="fas fa-arrow-right"></i></button>
+
+    </div>
+
+
+
+    <div id="main-app">
+
+        <div class="slider-section">
+
+            <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200')">
+
+                <div class="slide-overlay"><h2 id="s-text">Precision Agriculture Dataset Loaded</h2></div>
+
+            </div>
+
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200')">
+
+                <div class="slide-overlay"><h2>Crop Disease AI Diagnosis</h2></div>
+
+            </div>
+
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=1200')">
+
+                <div class="slide-overlay"><h2>Tractor & Machine Maintenance</h2></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="kcc-banner">
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+
+                <div class="ring-icon"><i class="fas fa-phone-alt" style="color: #d32f2f;"></i></div>
+
+                <div><strong id="kcc-head">Kisan Call Center</strong><br><small id="kcc-sub">Toll-Free Helpline</small></div>
+
+            </div>
+
+            <a href="tel:18001801551" style="color: var(--accent); font-size: 1.4rem; font-weight: bold; text-decoration: none;">1800-180-1551</a>
+
+        </div>
+
+
+
+        <div class="dash-grid">
+
+            <div class="dash-card" style="border-bottom-color: var(--info);">
+
+                <i class="fas fa-wind" style="color: var(--info);"></i>
+
+                <h4 id="w-city" style="margin:5px 0; font-size: 0.85rem;">Locating...</h4>
+
+                <p style="margin:0; font-weight: bold;"><span id="w-temp">--</span>°C | AQI: <span id="aqi-val">--</span></p>
+
+            </div>
+
+            <div class="dash-card" style="border-bottom-color: var(--accent);">
+
+                <i class="fas fa-landmark" style="color: #f57c00;"></i>
+
+                <h4 style="margin:5px 0; font-size: 0.85rem;">Sarkari Yojana</h4>
+
+                <p style="margin:0; font-size: 0.75rem; color: #666;">PM-Kisan Update Live</p>
+
+            </div>
+
+            <div class="dash-card" style="border-bottom-color: var(--danger);">
+
+                <i class="fas fa-bug" style="color: var(--danger);"></i>
+
+                <h4 style="margin:5px 0; font-size: 0.85rem;">Pest Alert</h4>
+
+                <p style="margin:0; font-size: 0.75rem; color: var(--danger); font-weight: bold;">Low Risk Today</p>
+
+            </div>
+
+            <div class="dash-card" style="border-bottom-color: var(--primary);">
+
+                <i class="fas fa-certificate" style="color: var(--primary);"></i>
+
+                <h4 style="margin:5px 0; font-size: 0.85rem;">Seed Quality</h4>
+
+                <p style="margin:0; font-size: 0.75rem; color: #666;">ICAR 2026 Standards</p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="tool-bg">
+
+            <div class="main-container">
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap: wrap; gap:10px;">
+
+                    <h2 id="tool-head" style="color:var(--primary); margin:0;"><i class="fas fa-robot"></i> Agri-Assistant</h2>
+
+                    <select id="lang-select" onchange="changeLanguage()">
+
+                        <option value="en-IN">English</option>
+
+                        <option value="hi-IN">हिन्दी (Hindi)</option>
+
+                        <option value="pa-IN">ਪੰਜਾਬੀ (Punjabi)</option>
+
+                        <option value="gu-IN">ગુજરાતી (Gujarati)</option>
+
+                        <option value="mr-IN">मराठी (Marathi)</option>
+
+                        <option value="ta-IN">தமிழ் (Tamil)</option>
+
+                        <option value="te-IN">తెలుగు (Telugu)</option>
+
+                        <option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
+
+                        <option value="bn-IN">বাংলা (Bengali)</option>
+
+                        <option value="ml-IN">മലയാളം (Malayalam)</option>
+
+                        <option value="or-IN">ଓଡ଼ିଆ (Odia)</option>
+
+                        <option value="ur-IN">اردو (Urdu)</option>
+
+                        <option value="as-IN">অসমীয়া (Assamese)</option>
+
+                        <option value="mai-IN">मैथिली (Maithili)</option>
+
+                        <option value="sat-IN">संताली (Santali)</option>
+
+                    </select>
+
+                </div>
+
+
+
+                <img id="preview-img">
+
+                <div class="input-group">
+
+                    <input type="file" id="file-input" style="display:none;" accept="image/*">
+
+                    <button id="camera-btn" class="click-btn" style="background:#49300b7f;"><i class="fas fa-camera"></i></button>
+
+                    <input type="text" id="user-input" placeholder="Ask about tractor, seeds or pests...">
+
+                    <button id="voice-btn" class="click-btn" style="background:#607d8b;"><i class="fas fa-microphone"></i></button>
+
+                    <button id="send-btn" class="click-btn" style="background:var(--primary);"><i class="fas fa-paper-plane"></i></button>
+
+                </div>
+
+
+
+                <div id="response-box">
+
+                    <div id="ai-text" style="line-height:1.7; font-size: 1.05rem; color: #333;"></div>
+
+                    <button id="listen-btn" style="width:100%; margin-top:20px; padding:12px; border-radius:15px; background:var(--secondary); color:white; border:none; font-weight:bold; cursor:pointer;">
+
+                        <i class="fas fa-volume-up"></i> <span id="listen-txt">LISTEN SOLUTION</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <footer>
+
+            <p><strong>Farmers AI Master</strong> | National Science Day 2026</p>
+
+            <p>Developer: <b>Ansh Vashisht</b> | <a href="mailto:anshvashisht08@gmail.com" style="color:var(--accent);">anshvashisht08@gmail.com</a></p>
+
+        </footer>
+
+    </div>
+
+
+
+    <script>
+
+        // REPLACE WITH YOUR KEY FROM GOOGLE AI STUDIO
+
+        const API_KEY = "YOUR_API_KEY";
+
+        const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+
+
+
+        const langUI = {
+
+            "en-IN": { s: "Precision Agriculture Dataset Loaded", tool: "Agri-Assistant", kcc: "Kisan Call Center", sub: "Toll-Free Helpline", listen: "LISTEN SOLUTION", placeholder: "Ask anything..." },
+
+            "hi-IN": { s: "सटीक कृषि डेटाबेस लोड किया गया", tool: "कृषि सहायक", kcc: "किसान कॉल सेंटर", sub: "टोल-फ्री हेल्पलाइन", listen: "समाधान सुनें", placeholder: "कुछ भी पूछें..." },
+
+            "pa-IN": { s: "ਸ਼ੁੱਧ ਖੇਤੀਬਾੜੀ ਡੇਟਾਸੈਟ ਲੋਡ ਕੀਤਾ ਗਿਆ", tool: "ਖੇਤੀਬਾੜੀ ਸਹਾਇਕ", kcc: "ਕਿਸਾਨ ਕਾਲ ਸੈਂਟਰ", sub: "ਟੋਲ-ਫ੍ਰੀ ਹੈਲਪਲਾਈਨ", listen: "ਸਮਾਧਾਨ ਸੁਣੋ", placeholder: "ਕੁਝ ਵੀ ਪੁੱਛੋ..." },
+
+            "gu-IN": { s: "ચોકસાઈ કૃષિ ડેટાબેઝ લોડ થયો", tool: "કૃષિ મદદગાર", kcc: "કિસાન કોલ સેન્ટર", sub: "ટોલ-ફ્રી હેલ્પલાઇન", listen: "સમાધાન સાંભળો", placeholder: "કંઈપણ પૂછો..." },
+
+            "mr-IN": { s: "अचूक कृषी डेटाबेस लोड झाला", tool: "कृषी सहाय्यक", kcc: "किसान कॉल सेंटर", sub: "टोल-फ्री हेल्पलाइन", listen: "उत्तर ऐका", placeholder: "काहीही विचारा..." },
+
+            "ta-IN": { s: "துல்லியமான விவசாய தரவுத்தளம்", tool: "விவசாய உதவியாளர்", kcc: "கிசான் கால் சென்டர்", sub: "கட்டணமில்லா உதவி", listen: "பதிலைக் கேளுங்கள்", placeholder: "எது வேண்டுமானாலும் கேளுங்கள்..." },
+
+            "te-IN": { s: "ప్రతి పొలానికి సాంకేతికత", tool: "వ్యవసాయ సహాయకుడు", kcc: "కిసాన్ కాల్ సెంటర్", sub: "టోల్ ఫ్రీ హెల్ప్‌లైన్", listen: "వాయిస్ వినండి", placeholder: "ఏదైనా అడగండి..." }
+
+        };
+
+
+
+        function changeLanguage() {
+
+            const l = document.getElementById('lang-select').value;
+
+            const d = langUI[l] || langUI["en-IN"];
+
+            document.getElementById('s-text').innerText = d.s;
+
+            document.getElementById('tool-head').innerHTML = `<i class="fas fa-robot"></i> ${d.tool}`;
+
+            document.getElementById('kcc-head').innerText = d.kcc;
+
+            document.getElementById('kcc-sub').innerText = d.sub;
+
+            document.getElementById('listen-txt').innerText = d.listen;
+
+            document.getElementById('user-input').placeholder = d.placeholder;
+
+        }
+
+
+
+        async function fetchAgriStats() {
+
+            try {
+
+                const locRes = await fetch('https://ipapi.co/json/');
+
+                const loc = await locRes.json();
+
+                document.getElementById('w-city').innerText = loc.city;
+
+                const lat = loc.latitude;
+
+                const lon = loc.longitude;
+
+                const wRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+
+                const wData = await wRes.json();
+
+                document.getElementById('w-temp').innerText = Math.round(wData.current_weather.temperature);
+
+                const aqiRes = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=us_aqi`);
+
+                const aqiData = await aqiRes.json();
+
+                const aqi = aqiData.current.us_aqi;
+
+                const aqiElem = document.getElementById('aqi-val');
+
+                aqiElem.innerText = aqi;
+
+                aqiElem.style.color = aqi > 100 ? '#d32f2f' : (aqi > 50 ? '#f57c00' : '#2e7d32');
+
+            } catch (e) { document.getElementById('w-city').innerText = "Location Error"; }
+
+        }
+
+
+
+        function startApp() {
+
+            document.getElementById('splash-screen').style.transform = 'translateY(-100%)';
+
+            setTimeout(() => {
+
+                document.getElementById('splash-screen').style.display='none';
+
+                document.getElementById('main-app').style.display='block';
+
+                setTimeout(()=>document.getElementById('main-app').style.opacity='1', 50);
+
+                fetchAgriStats();
+
+                setInterval(() => {
+
+                    let s = document.querySelectorAll('.slide');
+
+                    let c = [...s].findIndex(i => i.classList.contains('active'));
+
+                    s[c].classList.remove('active');
+
+                    s[(c+1)%s.length].classList.add('active');
+
+                }, 4000);
+
+            }, 800);
+
+        }
+
+
+
+        document.getElementById('camera-btn').onclick = () => document.getElementById('file-input').click();
+
+        document.getElementById('file-input').onchange = (e) => {
+
+            const r = new FileReader(); r.onload = () => { window.b64 = r.result.split(',')[1]; document.getElementById('preview-img').src=r.result; document.getElementById('preview-img').style.display='block'; };
+
+            r.readAsDataURL(e.target.files[0]);
+
+        };
+
+
+
+        const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+        document.getElementById('voice-btn').onclick = () => { rec.lang = document.getElementById('lang-select').value; rec.start(); };
+
+        rec.onresult = (e) => { document.getElementById('user-input').value = e.results[0][0].transcript; };
+
+
+
+        document.getElementById('send-btn').onclick = async () => {
+
+            const inp = document.getElementById('user-input');
+
+            const lang = document.getElementById('lang-select').value;
+
+            if(!inp.value && !window.b64) return;
+
+            
+
+            document.getElementById('response-box').style.display='block';
+
+            document.getElementById('ai-text').innerText = "Analyzing Agri-Data...";
+
+
+
+            const payload = { contents: [{ parts: [
+
+                { text: `System: Expert Indian Agri-Scientist. Mandatory: Use ONLY the ${lang} script. Give ICAR based advice. BE CONCISE: LIMIT RESPONSE TO UNDER 180 WORDS. Question: ${inp.value}` }, 
+
+                ...(window.b64 ? [{ inline_data: { mime_type: "image/jpeg", data: window.b64 } }] : [])
+
+            ] }] };
+
+            
+
+            try {
+
+                const response = await fetch(URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+
+                const res = await response.json();
+
+                document.getElementById('ai-text').innerText = res.candidates[0].content.parts[0].text.replace(/\*/g, '');
+
+            } catch(e) { document.getElementById('ai-text').innerText = "Error! Check connection."; }
+
+        };
+
+
+
+        document.getElementById('listen-btn').onclick = () => {
+
+            const text = document.getElementById('ai-text').innerText;
+
+            const u = new SpeechSynthesisUtterance(text);
+
+            u.lang = document.getElementById('lang-select').value;
+
+            window.speechSynthesis.cancel();
+
+            window.speechSynthesis.speak(u);
+
+        };
+
+    </script>
+
+</body>
+
+</html>
+farmer ai assistant.html
+Displaying farmer ai assistant.html.
