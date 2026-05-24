@@ -36,7 +36,7 @@ https://anshvashisht08-alt.github.io/AI-Farmer-Assistant/
 ![Splash Screen](Screenshot%202026-05-24%20195620.png)
 
 ### AI Dashboard
-![Dashboard](dashboard.png)
+![Dashboard](Screenshot%202026-05-24%20195459.png)
 
 ### Multilingual Assistant
 ![Multilingual](multilingual.png)
