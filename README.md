@@ -33,7 +33,7 @@ https://anshvashisht08-alt.github.io/AI-Farmer-Assistant/
 ## 📸 Project Screenshots
 
 ### Splash Screen
-![Splash Screen](splash-screen.png)
+![Splash Screen](Screenshot%202026-05-24%20195620.png)
 
 ### AI Dashboard
 ![Dashboard](dashboard.png)
