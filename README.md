@@ -41,6 +41,17 @@ https://anshvashisht08-alt.github.io/AI-Farmer-Assistant/
 ### Multilingual Assistant
 ![Multilingual](Screenshot%202026-05-24%20195520.png)
 
+### AI Disease Detection
+![AI Disease Detection](Screenshot%202026-05-24%20200004.png)
+
+Farmers can upload crop images to receive AI-powered disease detection and detailed treatment recommendations. The system analyzes plant infections, explains symptoms, and provides ICAR-recommended preventive and chemical solutions for better crop management.
+
+
+### Listen Solution Feature
+![Listen Solution](Screenshot%202026-05-24%20200031.png)
+
+The platform also includes a voice-enabled “Listen Solution” feature that reads the complete AI-generated response aloud. This improves accessibility for farmers and supports multilingual smart farming assistance.
+
 ## 🎯 Future Scope
 
 * Crop disease detection using AI
